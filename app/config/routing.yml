@@ -1,0 +1,4 @@
+webgig_fridge:
+    resource: "@WebgigFridgeBundle/Resources/config/routing.yml"
+    prefix:   /
+
