@@ -3,8 +3,12 @@
 <div class="jumbotron">
 
 {% if recommendation %}
-<h2>The recommended recipe is</h2> <h1><i class="text-info">" {{ recommendation}} "</i></h1>
-<hr>
+    {% if recommendation == "Order Takeout" %}
+    <h2><i class="text-danger">{{ recommendation}}</i></h2>
+    {% else %}
+        <h2>The recommended recipe is</h2> <h1><i class="text-info">" {{ recommendation}} "</i></h1>
+    {% endif %}
+    <hr>
 {% endif %}
 
 {% if error %}

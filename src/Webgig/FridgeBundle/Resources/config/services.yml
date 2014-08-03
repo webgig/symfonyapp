@@ -5,3 +5,5 @@ services:
         class:        Webgig\FridgeBundle\Helper\CsvParser
     array_to_item:
         class:        Webgig\FridgeBundle\Helper\ArrayToItem
+    json_to_recipe:
+        class:        Webgig\FridgeBundle\Helper\JsonToRecipe
