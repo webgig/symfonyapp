@@ -1,0 +1,7 @@
+services:
+    recommendations:
+        class:        Webgig\FridgeBundle\DependencyInjection\Recommendations
+    csv_parser:
+        class:        Webgig\FridgeBundle\Helper\CsvParser
+    array_to_item:
+        class:        Webgig\FridgeBundle\Helper\ArrayToItem

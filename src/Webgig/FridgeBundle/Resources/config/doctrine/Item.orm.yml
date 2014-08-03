@@ -1,0 +1,25 @@
+Webgig\FridgeBundle\Entity\Item:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        item:
+            type: string
+            length: 255
+            column: Item
+        amount:
+            type: integer
+            column: Amount
+        unit:
+            type: string
+            length: 255
+            column: Unit
+        use_by:
+            type: date
+            column: UseBy
+    lifecycleCallbacks: {  }
