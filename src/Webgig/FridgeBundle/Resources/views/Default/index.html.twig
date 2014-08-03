@@ -1,7 +1,18 @@
 {% extends 'WebgigFridgeBundle::layout.html.twig' %}
 {% block content %}
 <div class="jumbotron">
-<h2>Please provide the items in the fridge as CSV and the recipe as JSON</h2>
+
+{% if recommendation %}
+<h2>The recommended recipe is</h2> <h1><i class="text-info">" {{ recommendation}} "</i></h1>
+<hr>
+{% endif %}
+
+{% if error %}
+<h3 class="text-danger">{{ error }}</h3>
+<hr>
+{% endif %}
+
+<h4>Please provide the items in the fridge as CSV and the recipe as JSON</h4>
 <div class="span9">
     <div class="row">
         {% block form_start %}
@@ -17,8 +28,8 @@
             {% if form_method != method %}
                 <input type="hidden" name="_method" value="{{ method }}" />
             {% endif %}
-        {% endspaceless %}
-        {% endblock form_start %}
+
+            {{ form_row(form._token) }}
 
         {% block form_row %}
         {% spaceless %}
@@ -26,14 +37,14 @@
             <div class="input-group">
                 {{ form_errors(form.fridge_csv) }}
                 {{ form_label(form.fridge_csv,'Items in the Fridge') }}
-                {{ form_widget(form.fridge_csv,{ 'attr': {  'style' : 'width:490px', 'rows' : '4', 'cols' : '25' }}) }}
+                {{ form_widget(form.fridge_csv,{ 'attr': {  'style' : 'width:490px', 'rows' : '10', 'cols' : '25' }}) }}
             </div>
         </div>
         <div class="col-xs-6">
             <div class="input-group">
                 {{ form_errors(form.recipe_json) }}
                 {{ form_label(form.fridge_csv,'Recipes Json') }}
-                {{ form_widget(form.recipe_json,{ 'attr': {  'style' : 'width:490px', 'rows' : '4', 'cols' : '25' }}) }}
+                {{ form_widget(form.recipe_json,{ 'attr': {  'style' : 'width:490px', 'rows' : '10', 'cols' : '25' }}) }}
             </div>
         </div>
         <div class="col-xs-12">
@@ -46,7 +57,8 @@
         {% endspaceless %}
         {% endblock form_row %}
 
-
+    {% endspaceless %}
+    {% endblock form_start %}
     </div>
 </div>
 </div>

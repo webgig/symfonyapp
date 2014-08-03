@@ -24,7 +24,8 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
 
-
+        $recommend_string = '';
+        $error =    '';
         if ($form->isValid()) {
             $fridge_csv   = $form->getData()['fridge_csv'];
             $recipe_json = $form->getData()['recipe_json'];
@@ -38,7 +39,6 @@ class DefaultController extends Controller
             $csv_parse_helper = $this->get('csv_parser');
             $csv = $csv_parse_helper->parse($fridge_csv);
 
-
             $array_to_item = $this->get('array_to_item');
 
             $items   = $array_to_item->serialize($csv,'Webgig\FridgeBundle\Entity\Item',true);
@@ -46,32 +46,31 @@ class DefaultController extends Controller
 
             $recipe_json_array = json_decode($recipe_json);
 
-            foreach ($recipe_json_array as $key => $value) {
-                $recipe = $serializer->deserialize(json_encode($value),'Webgig\FridgeBundle\Entity\Recipe', 'json');
-                $ingredients = null;
-                foreach ($recipe->getIngredients() as $ing) {
-                    $ingredients[] = $serializer->deserialize(json_encode($ing),'Webgig\FridgeBundle\Entity\Ingredient', 'json');
-                }
+            if(is_array($recipe_json_array) && is_array($items) ){
+                    foreach ($recipe_json_array as $key => $value) {
+                        $recipe = $serializer->deserialize(json_encode($value),'Webgig\FridgeBundle\Entity\Recipe', 'json');
+                        $ingredients = null;
+                        foreach ($recipe->getIngredients() as $ing) {
+                            $ingredients[] = $serializer->deserialize(json_encode($ing),'Webgig\FridgeBundle\Entity\Ingredient', 'json');
+                        }
 
-                $recipe->setIngredients($ingredients);
-                $recipes[] = $recipe;
+                        $recipe->setIngredients($ingredients);
+                        $recipes[] = $recipe;
+                    }
+
+                // perform some action...
+                $recom = $this->get('recommendations');
+                $recommend_string = $recom->recommend($items,$recipes);
+            } else {
+                $error = "Sorry! An error occurred.";
             }
 
-            // perform some action...
-            $recom = $this->get('recommendations');
-            $recommend_string = $recom->recommend($items,$recipes);
-
-
-            return $this->render(
-                'WebgigFridgeBundle:Default:recommend.html.twig',
-                     array('recommendation' => $recommend_string)
-            );
 
         }
 
         return $this->render(
             'WebgigFridgeBundle:Default:index.html.twig',
-            array('form' => $form->createView(),'method'=>'POST','action'=>'','attr'=>'','multipart'=>'')
+            array('form' => $form->createView(),'method'=>'POST','action'=>'','attr'=>'','multipart'=>'','recommendation'=>$recommend_string,'error'=>$error)
         );
     }
 }
