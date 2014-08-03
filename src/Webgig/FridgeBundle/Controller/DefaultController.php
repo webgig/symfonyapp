@@ -18,7 +18,9 @@ class DefaultController extends Controller
 
         $registration = new Fridge();
 
-        $form = $this->createForm($registration);
+        $form = $this->createForm($registration,array(
+            'action' => '',
+        ));
 
         $form->handleRequest($request);
 
@@ -59,14 +61,17 @@ class DefaultController extends Controller
             $recom = $this->get('recommendations');
             $recommend_string = $recom->recommend($items,$recipes);
 
-            echo $recommend_string;
 
-            exit;
-           // return $this->redirect($this->generateUrl('task_success'));
+            return $this->render(
+                'WebgigFridgeBundle:Default:recommend.html.twig',
+                     array('recommendation' => $recommend_string)
+            );
+
         }
 
         return $this->render(
             'WebgigFridgeBundle:Default:index.html.twig',
             array('form' => $form->createView(),'method'=>'POST','action'=>'','attr'=>'','multipart'=>'')
-        );    }
+        );
+    }
 }

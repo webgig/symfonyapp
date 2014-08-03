@@ -21,7 +21,7 @@ class Fridge extends AbstractType
 
 
         $builder->add('save', 'submit', array(
-                    'attr' => array('class' => 'save'),
+                    'attr' => array('class' => 'btn btn-lg btn-success'),
                 ));
 
 

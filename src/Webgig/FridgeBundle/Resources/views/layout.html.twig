@@ -24,12 +24,7 @@
 <div class="container">
 
     <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">Items</a></li>
-          <li><a href="#">Recipes</a></li>
-        </ul>
-        <h3 class="text-muted">Sample Fridge name</h3>
+        <h3 class="text-muted"><a href="/">Recipe Recommendation</a></h3>
     </div>
 
     {% for flashMessage in app.session.flashbag.get('notice') %}

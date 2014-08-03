@@ -1,14 +1,9 @@
 {% extends 'WebgigFridgeBundle::layout.html.twig' %}
 {% block content %}
 <div class="jumbotron">
-<h1>Jumbotron Heading</h1>
-<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-<p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-</div>
-
+<h2>Please provide the items in the fridge as CSV and the recipe as JSON</h2>
 <div class="span9">
     <div class="row">
-        {{ form(form) }}
         {% block form_start %}
         {% spaceless %}
             {% set method = method|upper %}
@@ -27,23 +22,34 @@
 
         {% block form_row %}
         {% spaceless %}
+        <div class="col-xs-6">
             <div class="input-group">
-                {{ form_errors(form) }}
-                {{ form_row(form.fridge_csv) }}
+                {{ form_errors(form.fridge_csv) }}
+                {{ form_label(form.fridge_csv,'Items in the Fridge') }}
+                {{ form_widget(form.fridge_csv,{ 'attr': {  'style' : 'width:490px', 'rows' : '4', 'cols' : '25' }}) }}
             </div>
+        </div>
+        <div class="col-xs-6">
             <div class="input-group">
-                {{ form_errors(form) }}
-                {{ form_row(form.recipe_json) }}
+                {{ form_errors(form.recipe_json) }}
+                {{ form_label(form.fridge_csv,'Recipes Json') }}
+                {{ form_widget(form.recipe_json,{ 'attr': {  'style' : 'width:490px', 'rows' : '4', 'cols' : '25' }}) }}
             </div>
+        </div>
+        <div class="col-xs-12">
 
-            <div class="input-group">
+            <div class="input-group" style="float-right">
                 {{ form_errors(form) }}
-               {{ form_widget(form.save, { 'label': 'Click me' }) }}
+               <p>{{ form_widget(form.save, { 'label': 'Get Recommendations' ,'class':'btn btn-lg btn-success'}) }}</p>
             </div>
+        </div>
         {% endspaceless %}
         {% endblock form_row %}
 
 
     </div>
 </div>
+</div>
+
+
 {% endblock %}
