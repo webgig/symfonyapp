@@ -1,7 +1,0 @@
-parameters:
-#    webgig_fridge.example.class: Webgig\Bundle\FridgeBundle\Example
-
-services:
-#    webgig_fridge.example:
-#        class: %webgig_fridge.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

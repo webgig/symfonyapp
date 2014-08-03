@@ -1,3 +1,0 @@
-webgig_fridge_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: WebgigFridgeBundle:Default:index }
